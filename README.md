@@ -18,12 +18,6 @@ Note: 'env' can be replaced with whatever you want to call it.
 We could use a Docker container, but it's easier for now to use a virtual environment.
 
 ## Dependencies
-
-### External dependencies
-Install everything you need with pip:
-
-        pip install -r requirements.txt
-
 ### Install code from the book
 The [website for the book](http://resources.codingthematrix.com) has links to download all deps as python files. They are downloaded and stored under `./support`.
 
@@ -33,3 +27,10 @@ First, cd into /support and then install it:
         python setup.py install
 
 Once installed, support modules are available anywhere inside the virutalenv.
+
+### External dependencies
+Install everything you need with pip:
+
+        pip install -r requirements.txt
+
+
