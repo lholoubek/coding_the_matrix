@@ -23,6 +23,7 @@ def plot(L, scale=4, dot_size = 3, browser=None):
     scalar = 200./scale
     origin = (210, 210)
     hpath = create_temp('.html')
+    print("plotting file: {}".format(hpath))
     with open(hpath, 'w') as h:
         h.writelines(
             ['<!DOCTYPE html>\n'
@@ -86,9 +87,15 @@ def getbrowser():
 # Create a temporary file that will be removed at exit
 # Returns a path to the file
 def create_temp(suffix='', prefix='tmp', dir=None):
+    if not dir:
+        dir = os.getcwd() + "/tmp"
+        if not os.path.exists(dir):
+            print("creating new tmp folder to store plots - {}".format(dir))
+            os.mkdir(dir)
     _f, path = tempfile.mkstemp(suffix, prefix, dir)
     os.close(_f)
-    remove_at_exit(path)
+    # TODO: figure out why this doesn't always work
+    # remove_at_exit(path)
     return path
 
 # Register a file to be removed at exit
