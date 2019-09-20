@@ -73,15 +73,28 @@ class VotingRecords(object):
     # task 2.12.2
     def policy_compare(self, sen_a, sen_b):
         self.check_records(sen_a, sen_b)
-        return self.dot(self.voting_records.get(sen_a), self.voting_records.get(sen_b))
+        compare = self.dot(self.voting_records.get(sen_a), self.voting_records.get(sen_b))
+        print("Compare {}:{} --> {}".format(sen_a, sen_b, compare))
+        return compare 
     
     def print_senator_names(self):
         print(self.voting_records.keys())
+    
+    # task 2.12.3
+    def most_similar(self, sen):
+        self.check_records(sen)
+        # most_similar = max(self.voting_records.items(), key=lambda key: self.dot(self.voting_records[key], self.voting_records.get(sen)))
+        # print(self.voting_records.items())
+        compares = [(x[0], self.dot(x[1], self.voting_records.get(sen))) for x in self.voting_records.items() if x[0] != sen]
+        most_similar = max(compares, key=lambda item: item[1])
+        print("Most similar to {}: {}".format(sen, most_similar[0]))
+        return most_similar[0]
 
 def lab_main():
     voting_records = VotingRecords(voting_record_file)
     # voting_records.print_senator_names()
-    print(voting_records.policy_compare('Obama', 'Grassley'))
+    voting_records.policy_compare('Obama', 'Grassley')
+    voting_records.most_similar('Obama')
     
 
 
