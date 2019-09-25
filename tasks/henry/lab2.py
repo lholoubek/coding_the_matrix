@@ -93,7 +93,7 @@ def find_average_record(sen_set, voting_dict):
             sum_vec = voting_dict[s]
         else:
             sum_vec = vec_add(sum_vec, voting_dict[s])
-    return vec_div(sum_vec, len(sum_vec))
+    return vec_div(sum_vec, len(sen_set))
 
 
 if __name__ == "__main__":
@@ -108,8 +108,8 @@ if __name__ == "__main__":
         # Task 2.12.6
         # print(policy_compare('McConnell', 'Bunning', d)) # 40 pretty high
 
+        democrats = get_democrats(mylist)
         # Task 2.12.7
-        # democrats = get_democrats(mylist)
         # best = 0
         # best_name = ''
         # for sen in d.keys():
@@ -120,15 +120,17 @@ if __name__ == "__main__":
         # print('highest avg similarity Democrat: {}, score: {}'.format(best_name, best)) # highest avg similarity Democrat: Biden, score: 34.8604651163
 
         # Task 2.12.8
-        # average_democrat_record = find_average_record(democrats, d)
-        # best = 0
-        # best_name = ''
-        # for sen in d.keys():
-        #     score = dot_product(d[sen], average_democrat_record)
-        #     if a > best:
-        #         best = a
-        #         best_name = sen
-        # print('highest avg similarity Democrat: {}, score: {}'.format(best_name, best)) # highest avg similarity Democrat: Pryor, score: 31.9302325581
+        average_democrat_record = find_average_record(democrats, d)
+        print(average_democrat_record)
+        best = 0
+        best_name = ''
+        for sen in d.keys():
+            a = dot_product(d[sen], average_democrat_record)
+            if a > best:
+                best = a
+                best_name = sen
+                print('new best: {}, score: {}'.format(best_name, best))
+        print('highest avg similarity Democrat: {}, score: {}'.format(best_name, best)) # highest avg similarity Democrat: Pryor, score: 31.9302325581
         
         # Task 2.12.9
         # best = 0
