@@ -13,7 +13,10 @@ def getitem(M, k):
     0
     """
     assert k[0] in M.D[0] and k[1] in M.D[1]
-    pass
+    want = (k[0], k[1])
+    if want in M.f:
+        return M.f[want]
+    return 0
 
 def equal(A, B):
     """
@@ -39,7 +42,15 @@ def equal(A, B):
     True
     """
     assert A.D == B.D
-    pass
+    for X,Y in [(A,B), (B,A)]:
+        for k,v in X.f.items():
+            if v == 0:
+                continue
+            if k not in Y.f:
+                return False
+            if Y[k] != v:
+                return False
+    return True
 
 def setitem(M, k, val):
     """
@@ -59,7 +70,7 @@ def setitem(M, k, val):
     True
     """
     assert k[0] in M.D[0] and k[1] in M.D[1]
-    pass
+    M.f[k] = val
 
 def add(A, B):
     """
@@ -87,7 +98,10 @@ def add(A, B):
     True
     """
     assert A.D == B.D
-    pass
+    res = A.copy()
+    for k,v in B.f.items():
+        A[k] += v
+    return res
 
 def scalar_mul(M, x):
     """
@@ -101,7 +115,10 @@ def scalar_mul(M, x):
     >>> 0.25*M == Mat(({1,3,5}, {2,4}), {(1,2):1.0, (5,4):0.5, (3,4):0.75})
     True
     """
-    pass
+    res = M.copy()
+    for k,v in M.f.items():
+        res[k] = v*x
+    return res
 
 def transpose(M):
     """
@@ -115,7 +132,10 @@ def transpose(M):
     >>> M.transpose() == Mt
     True
     """
-    pass
+    res = Mat((M.D[1], M.D[0]), {})
+    for k,v in M.f.items():
+        res[(k[1], k[0])] = v
+    return res
 
 def vector_matrix_mul(v, M):
     """
@@ -270,3 +290,8 @@ class Mat:
 
     def __iter__(self):
         raise TypeError('%r object is not iterable' % self.__class__.__name__)
+
+if __name__ == '__main__':
+    import doctest
+#    doctest.testmod()
+    doctest.run_docstring_examples(transpose, globals())
