@@ -133,16 +133,16 @@ if __name__ == "__main__":
         print('highest avg similarity Democrat: {}, score: {}'.format(best_name, best)) # highest avg similarity Democrat: Pryor, score: 31.9302325581
         
         # Task 2.12.9
-        # best = 0
-        # best_pair = []
-        # for outer_sen in d.keys():
-        #     for inner_sen in d.keys():
-        #         if outer_sen == inner_sen:
-        #             continue
-        #         score = policy_compare(outer_sen, inner_sen, d)
-        #         if score < best:
-        #             best = score
-        #             best_pair = [outer_sen, inner_sen]
+        best = 0
+        best_pair = []
+        for outer_sen in d.keys():
+            for inner_sen in d.keys():
+                if outer_sen == inner_sen:
+                    continue
+                score = policy_compare(outer_sen, inner_sen, d)
+                if score < best:
+                    best = score
+                    best_pair = [outer_sen, inner_sen]
         
-        # print('most bitter rivals: {} vs {}, score {}'.format(best_pair[0], best_pair[1], best)) # most bitter rivals: Inhofe vs Feingold, score -3
+        print('most bitter rivals: {} vs {}, score {}'.format(best_pair[0], best_pair[1], best)) # most bitter rivals: Inhofe vs Feingold, score -3
 
