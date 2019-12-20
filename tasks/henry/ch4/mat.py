@@ -162,7 +162,11 @@ def vector_matrix_mul(v, M):
     True
     """
     assert M.D[0] == v.D
-    pass
+    res = Vec(M.D[1], {})
+    for col_key in M.D[1]:
+        col_vec = get_col(M, col_key)
+        res[col_key] = v*col_vec
+    return res
 
 def matrix_vector_mul(M, v):
     """
@@ -189,7 +193,11 @@ def matrix_vector_mul(M, v):
     True
     """
     assert M.D[1] == v.D
-    pass
+    res = Vec(M.D[0], {})
+    for row_key in M.D[0]:
+        row_vec = get_row(M, row_key)
+        res[row_key] = v*row_vec
+    return res
 
 def matrix_matrix_mul(A, B):
     """
@@ -218,7 +226,27 @@ def matrix_matrix_mul(A, B):
     True
     """
     assert A.D[1] == B.D[0]
-    pass
+    res = Mat((A.D[0], B.D[1]), {})
+    for a_row_key in A.D[0]:
+        for b_col_key in B.D[1]:
+            a_row_vec = get_row(A, a_row_key)
+            b_col_vec = get_col(B, b_col_key)
+            val = a_row_vec * b_col_vec
+            res[(a_row_key, b_col_key)] = val        
+
+    return res
+
+def get_row(M, row_key):
+    res = Vec(M.D[1], {})
+    for col_key in M.D[1]:
+        res[col_key] = M[(row_key, col_key)]
+    return res
+
+def get_col(M, col_key):
+    res = Vec(M.D[0], {})
+    for row_key in M.D[0]:
+        res[row_key] = M[(row_key, col_key)]
+    return res
 
 ################################################################################
 
@@ -294,4 +322,4 @@ class Mat:
 if __name__ == '__main__':
     import doctest
 #    doctest.testmod()
-    doctest.run_docstring_examples(transpose, globals())
+    doctest.run_docstring_examples(matrix_matrix_mul, globals())
