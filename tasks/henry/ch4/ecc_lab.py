@@ -20,10 +20,10 @@ print(G*Vec({0,1,2,3}, {0: one, 1: zero, 2: zero, 3: one}))
 
 R = matutil.listlist2mat(
     [
-        [zero, zero, one, zero, zero, zero, zero],
-        [zero, zero, zero, zero, one , zero, zero],
-        [zero, zero, zero, zero, zero, one, zero],
         [zero, zero, zero, zero, zero, zero, one],
+        [zero, zero, zero, zero, zero, one, zero],
+        [zero, zero, zero, zero, one , zero, zero],
+        [zero, zero, one, zero, zero, zero, zero],
     ]
 )
 
@@ -63,6 +63,7 @@ ct = Vec({0,1,2,3,4,5,6}, {0: one, 1: zero, 2: one, 3: one, 4: zero, 5: one, 6: 
 es = H*ct
 e = find_error(es)
 c = ct + e
+print(c)
 p = R * c
 print(p)
 # 1010
