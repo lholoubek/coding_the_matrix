@@ -96,11 +96,17 @@ def add(A, B):
     >>> D = Mat(({1,3}, {2,4}), {(1,2):6, (1,4):1, (3,4):3})
     >>> C1 + C2 == D
     True
+    >>> from GF2 import zero, one
+    >>> G1 = Mat(({1,3}, {2,4}), {(1,2):one, (3,4): one})
+    >>> G2 = Mat(({1,3}, {2,4}), {(1,4):one, (1,2): one})
+    >>> G = Mat(({1,3}, {2,4}), {(1,2):zero, (1,4): one, (3,4):one})
+    >>> G1 + G2 == G
+    True
     """
     assert A.D == B.D
     res = A.copy()
     for k,v in B.f.items():
-        A[k] += v
+        res[k] = A[k] + v
     return res
 
 def scalar_mul(M, x):
