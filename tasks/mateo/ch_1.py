@@ -1,4 +1,4 @@
-from plotting import plot
+from ch_1_the_field.plotting import plot
 
 # neutral face
 S = {2+2j, 3+2j, 1.75+1j, 2+1j, 2.25+1j, 2.5+1j, 2.75+1j, 3+1j, 3.25+1j}
@@ -47,7 +47,7 @@ for p in P:
 ['T', 'C', 'T', 'J', 'X', 'B', 'J', 'T', 'C', 'X', 'Y']
 ['U', 'D', 'U', 'K', 'Y', 'C', 'K', 'U', 'D', 'Y', 'Z']
 
-# using RF(2)
+# using GF(2)
 P = [[D[(c^p) % len(D)] for c in C] for p in range(31)]
 for p in P:
     print(p)
