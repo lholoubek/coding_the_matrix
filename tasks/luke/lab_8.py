@@ -46,14 +46,11 @@ class Weights(object):
 
     def evaluate(self, data_set):
         assert self.vec.shape[0] == data_set.data.shape[1]
-
         predictions = data_set.data.dot(self.vec)
         signum_predictions = Weights.signum(predictions)
-        # TODO - implement this differnetly so we don't have to loop :(
-        total_wrong = 0
-        for n in range(predictions.shape[0]):
-            if data_set.labels[n] - signum_predictions[n] != 0:
-                total_wrong += 1
+        delta = signum_predictions - data_set.labels
+        halved = .5 * delta
+        total_wrong = halved.dot(halved)
         percent_wrong = total_wrong/len(data_set.labels)
         return percent_wrong
     
@@ -96,8 +93,6 @@ if __name__ == "__main__":
     validation_data = PatientDataSet(VALIDATION_DATA)
     test = np.ones((training_data.data.shape[1]), dtype='float')
     weights = Weights(test)
-    weights.train(100000, 0.001, training_data)
+    weights.train(100000, 0.01, training_data)
     print("Performance on validation data: ")
     weights.report(validation_data)
-
-
